@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ka_http_chat;
 
 import java.io.BufferedReader;
@@ -14,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 /**
@@ -22,28 +22,34 @@ import java.util.logging.Level;
  */
 public class ChatServer
 {
+
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
-    private static final Properties properties = Logger.initProperties("ChatServer.properties");
+    private static final Properties properties = Logger.initProperties("server.properties");
+
+    public static void stopServer()
+    {
+        keepRunning = false;
+    }
 
     private static void handleClient(Socket socket) throws IOException
     {
-        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        Scanner input = new Scanner(socket.getInputStream());
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-        String message = input.readLine(); 
+        String message = input.nextLine(); //IMPORTANT blocking call
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.STOP))
         {
             writer.println(message.toUpperCase());
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
-            message = input.readLine(); 
+            message = input.nextLine(); //IMPORTANT blocking call
         }
         writer.println(ProtocolStrings.STOP);//Echo the stop message back to the client for a nice closedown
         socket.close();
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
     }
-    
+
     public static void main(String[] args)
     {
 
@@ -61,7 +67,7 @@ public class ChatServer
             serverSocket.bind(new InetSocketAddress(ip, port));
             do
             {
-                Socket socket = serverSocket.accept();
+                Socket socket = serverSocket.accept(); //Important Blocking call
                 java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to a client");
                 handleClient(socket);
             } while (keepRunning);

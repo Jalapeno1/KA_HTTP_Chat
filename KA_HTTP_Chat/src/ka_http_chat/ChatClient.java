@@ -68,44 +68,44 @@ public class ChatClient extends Thread {
         }
 
     }
-//        public static void main(String[] args)
-//    {
-//        int port = 9090;
-//        String ip = "localhost";
-//        if (args.length == 2)
-//        {
-//            port = Integer.parseInt(args[0]);
-//            ip = args[1];
-//        }
-//        try
-//        { 
-//            DummyListener dummy = new DummyListener();
-//            EchoClient tester = new EchoClient();
-//            tester.registerEchoListener(dummy);
-//            tester.connect(ip, port);       
-//            System.out.println("Sending 'Hello world'");
-//            tester.send("Hello World");
-//            System.out.println("Waiting for a reply");     
-//            tester.stopClient();
-//            System.in.read();      
-//        } catch (UnknownHostException ex)
-//        {
-//            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex)
-//        {
-//            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
-
-    public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 9090);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        out.println("Hello World");
-        String result = in.readLine();
-        System.out.println("Result was: " + result);
-
+        public static void main(String[] args)
+    {
+        int port = 9090;
+        String ip = "localhost";
+        if (args.length == 2)
+        {
+            port = Integer.parseInt(args[0]);
+            ip = args[1];
+        }
+        try
+        { 
+            TestListener dummy = new TestListener();
+            ChatClient tester = new ChatClient();
+            tester.registerEchoListener(dummy);
+            tester.connect(ip, port);       
+            System.out.println("Sending 'Hello world'");
+            tester.send("Hello World");
+            System.out.println("Waiting for a reply");     
+            tester.stopClient();
+            System.in.read();      
+        } catch (UnknownHostException ex)
+        {
+            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+
+//    public static void main(String[] args) throws IOException {
+//        Socket socket = new Socket("localhost", 9090);
+//        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+//        out.println("Hello World");
+//        String result = in.readLine();
+//        System.out.println("Result was: " + result);
+//
+//    }
 
 }
