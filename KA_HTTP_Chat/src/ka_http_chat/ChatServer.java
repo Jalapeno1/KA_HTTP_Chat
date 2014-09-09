@@ -23,7 +23,7 @@ public class ChatServer
 {
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
-    //private static final Properties properties = Logger.initProperties("server.properties");
+    private static final Properties properties = Logger.initProperties("ChatServer.properties");
 
     private static void handleClient(Socket socket) throws IOException
     {
@@ -46,13 +46,9 @@ public class ChatServer
     public static void main(String[] args)
     {
 
-//        int port = Integer.parseInt(properties.getProperty("port"));
-//        String ip = properties.getProperty("serverIp");
-//        String logFile = properties.getProperty("logFile");
-        
-        int port = 9090;
-        String ip = "localhost";
-        String logFile = "chatLog.txt";
+        int port = Integer.parseInt(properties.getProperty("port"));
+        String ip = properties.getProperty("serverIp");
+        String logFile = properties.getProperty("logFile");
 
         Logger.setLogFile(logFile, ChatServer.class.getName());
         Logger.closeLogger(ChatServer.class.getName());
