@@ -6,13 +6,14 @@
 
 package ka_http_chat;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.logging.Level;
 
 /**
@@ -27,16 +28,16 @@ public class ChatServer
 
     private static void handleClient(Socket socket) throws IOException
     {
-        Scanner input = new Scanner(socket.getInputStream());
+        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-        String message = input.nextLine(); 
+        String message = input.readLine(); 
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.STOP))
         {
             writer.println(message.toUpperCase());
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
-            message = input.nextLine(); 
+            message = input.readLine(); 
         }
         writer.println(ProtocolStrings.STOP);//Echo the stop message back to the client for a nice closedown
         socket.close();
