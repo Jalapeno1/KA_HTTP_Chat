@@ -23,20 +23,20 @@ public class ChatServer
 {
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
-    private static final Properties properties = Logger.initProperties("server.properties");
+    //private static final Properties properties = Logger.initProperties("server.properties");
 
     private static void handleClient(Socket socket) throws IOException
     {
         Scanner input = new Scanner(socket.getInputStream());
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-        String message = input.nextLine(); //IMPORTANT blocking call
+        String message = input.nextLine(); 
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.STOP))
         {
             writer.println(message.toUpperCase());
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
-            message = input.nextLine(); //IMPORTANT blocking call
+            message = input.nextLine(); 
         }
         writer.println(ProtocolStrings.STOP);//Echo the stop message back to the client for a nice closedown
         socket.close();
@@ -46,9 +46,13 @@ public class ChatServer
     public static void main(String[] args)
     {
 
-        int port = Integer.parseInt(properties.getProperty("port"));
-        String ip = properties.getProperty("serverIp");
-        String logFile = properties.getProperty("logFile");
+//        int port = Integer.parseInt(properties.getProperty("port"));
+//        String ip = properties.getProperty("serverIp");
+//        String logFile = properties.getProperty("logFile");
+        
+        int port = 9090;
+        String ip = "localhost";
+        String logFile = "chatLog.txt";
 
         Logger.setLogFile(logFile, ChatServer.class.getName());
         Logger.closeLogger(ChatServer.class.getName());
@@ -60,7 +64,7 @@ public class ChatServer
             serverSocket.bind(new InetSocketAddress(ip, port));
             do
             {
-                Socket socket = serverSocket.accept(); //Important Blocking call
+                Socket socket = serverSocket.accept();
                 java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to a client");
                 handleClient(socket);
             } while (keepRunning);

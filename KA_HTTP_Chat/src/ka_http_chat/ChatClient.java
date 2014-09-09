@@ -99,7 +99,7 @@ public class ChatClient extends Thread {
 //    }
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 4711);
+        Socket socket = new Socket("localhost", 9090);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         out.println("Hello World");
