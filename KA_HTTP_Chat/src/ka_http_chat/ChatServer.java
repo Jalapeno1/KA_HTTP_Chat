@@ -6,11 +6,19 @@
 
 package ka_http_chat;
 
+import java.net.ServerSocket;
+import java.util.Properties;
+
 /**
  *
  * @author Jonas
  */
 public class ChatServer
 {
+    private static boolean keepRunning = true;
+    private static ServerSocket serverSocket;
+    private static final Properties properties = Logger.initProperties("server.properties");
+
+    
     
 }
