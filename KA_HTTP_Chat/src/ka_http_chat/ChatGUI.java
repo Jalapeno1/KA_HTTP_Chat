@@ -3,22 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ka_http_chat;
-
 
 /**
  *
  * @author Jonas
  */
-public class ChatGUI extends javax.swing.JFrame
-{
+public class ChatGUI extends javax.swing.JFrame {
+    
+    ChatClient client = new ChatClient();
+    private String ip;
+    private int port;
 
-    /**
-     * Creates new form ChatGUI
-     */
-    public ChatGUI()
-    {
+    public ChatGUI() {
         initComponents();
     }
 
@@ -59,6 +56,17 @@ public class ChatGUI extends javax.swing.JFrame
         jButtonMessage.setText("Send Message");
 
         jButtonConnection.setText("Connect");
+        jButtonConnection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConnectionActionPerformed(evt);
+            }
+        });
+
+        jTextFieldAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldAddressActionPerformed(evt);
+            }
+        });
 
         jTextFieldMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,29 +170,35 @@ public class ChatGUI extends javax.swing.JFrame
     }//GEN-LAST:event_jTextFieldMessageActionPerformed
 
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-jTextFieldChatBox.setText("");
-jTextFieldMessage.setText("");
-jLabelStatus.setText("Status");
-jTextFieldPortNumber.setText("");
-jTextFieldAddress.setText("");
+        jTextFieldChatBox.setText("");
+        jTextFieldMessage.setText("");
+        jLabelStatus.setText("Status");
+        jTextFieldPortNumber.setText("");
+        jTextFieldAddress.setText("");
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     private void jTextFieldMessageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMessageKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldMessageKeyPressed
 
+    private void jButtonConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectionActionPerformed
+        port = Integer.parseInt(jTextFieldPortNumber.getText());
+        ip = jTextFieldAddress.getText();  
+        client.runMain(port, ip);
+    }//GEN-LAST:event_jButtonConnectionActionPerformed
+
+    private void jTextFieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldAddressActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
-        
-        
+    public static void main(String args[]) {
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new ChatGUI().setVisible(true);
             }
         });

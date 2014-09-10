@@ -13,6 +13,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 
 public class ChatClient extends Thread {
+    
 
     Socket socket;
     private int port;
@@ -20,6 +21,7 @@ public class ChatClient extends Thread {
     private Scanner input;
     private PrintWriter output;
     List<ChatListener> listeners = new ArrayList<>();
+    
 
     public void registerChatListener(ChatListener liste) {
         listeners.add(liste);
@@ -68,15 +70,45 @@ public class ChatClient extends Thread {
         }
 
     }
-        public static void main(String[] args)
+//        public static void main(String[] args)
+//    {
+//        int port = 9090;
+//        String ip = "localhost";
+//        if (args.length == 2)
+//        {
+//            port = Integer.parseInt(args[0]);
+//            ip = args[1];
+//        }
+//        try
+//        { 
+//            TestListener dummy = new TestListener();
+//            ChatClient tester = new ChatClient();
+//            tester.registerChatListener(dummy);
+//            tester.connect(ip, port);       
+//            System.out.println("Sending 'Hello world'");
+//            tester.send("Hello World");
+//            System.out.println("Waiting for a reply");     
+//            tester.stopClient();
+//            System.in.read();      
+//        } catch (UnknownHostException ex)
+//        {
+//            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex)
+//        {
+//            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+    
+
+        public void runMain(int port, String ip)
     {
-        int port = 9090;
-        String ip = "localhost";
-        if (args.length == 2)
-        {
-            port = Integer.parseInt(args[0]);
-            ip = args[1];
-        }
+//        int port = 9090;
+//        String ip = "localhost";
+//        if (args.length == 2)
+//        {
+//            port = Integer.parseInt(args[0]);
+//            ip = args[1];
+//        }
         try
         { 
             TestListener dummy = new TestListener();
@@ -97,15 +129,5 @@ public class ChatClient extends Thread {
         }
         
     }
-
-//    public static void main(String[] args) throws IOException {
-//        Socket socket = new Socket("localhost", 9090);
-//        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-//        out.println("Hello World");
-//        String result = in.readLine();
-//        System.out.println("Result was: " + result);
-//
-//    }
-
+        
 }
