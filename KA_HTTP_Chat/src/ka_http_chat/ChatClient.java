@@ -21,7 +21,7 @@ public class ChatClient extends Thread {
     private PrintWriter output;
     List<ChatListener> listeners = new ArrayList<>();
 
-    public void registerEchoListener(ChatListener liste) {
+    public void registerChatListener(ChatListener liste) {
         listeners.add(liste);
     }
 
@@ -81,7 +81,7 @@ public class ChatClient extends Thread {
         { 
             TestListener dummy = new TestListener();
             ChatClient tester = new ChatClient();
-            tester.registerEchoListener(dummy);
+            tester.registerChatListener(dummy);
             tester.connect(ip, port);       
             System.out.println("Sending 'Hello world'");
             tester.send("Hello World");
