@@ -184,7 +184,7 @@ public class ChatGUI extends javax.swing.JFrame {
     private void jButtonConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectionActionPerformed
         port = Integer.parseInt(jTextFieldPortNumber.getText());
         ip = jTextFieldAddress.getText();  
-        client.runMain(port, ip);
+        client.connect(port, ip);
     }//GEN-LAST:event_jButtonConnectionActionPerformed
 
     private void jTextFieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAddressActionPerformed
