@@ -70,7 +70,7 @@ public class ChatServer
             } while (keepRunning);
         } catch (IOException ex)
         {
-            java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to	a client");
+            java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to a client");
         }
         
         Logger.closeLogger(ChatServer.class.getName());
