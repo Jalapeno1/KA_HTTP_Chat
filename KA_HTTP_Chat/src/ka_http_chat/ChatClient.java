@@ -100,15 +100,8 @@ public class ChatClient extends Thread {
 //        
     
 
-        public void runMain(int port, String ip)
+        public void connect(int port, String ip)
     {
-//        int port = 9090;
-//        String ip = "localhost";
-//        if (args.length == 2)
-//        {
-//            port = Integer.parseInt(args[0]);
-//            ip = args[1];
-//        }
         try
         { 
             TestListener dummy = new TestListener();
