@@ -5,7 +5,10 @@
  */
 package test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ka_http_chat.ChatClient;
 import ka_http_chat.ChatServer;
 import org.junit.AfterClass;
@@ -32,7 +35,13 @@ public class TestClient
             @Override
             public void run()
             {
-                ChatServer.main(null);
+                try
+                {
+                    ChatServer.main(null);
+                } catch (FileNotFoundException ex)
+                {
+                    Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }).start();
     }
