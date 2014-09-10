@@ -48,9 +48,12 @@ public class ChatServer
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
     }
     
-    public static void main(String[] args) throws FileNotFoundException
+    
+    
+    public static void main(String[] args) throws FileNotFoundException, IOException
     {
 
+        HTTPServer.runHTTPServer();
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
         String logFile = properties.getProperty("logFile");

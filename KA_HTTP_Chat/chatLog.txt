@@ -1,10 +1,4 @@
-sep 10, 2014 11:51:40 AM ka_http_chat.ChatServer main
+sep 10, 2014 5:20:46 PM ka_http_chat.ChatServer main
 INFO: Sever started
-sep 10, 2014 11:51:51 AM ka_http_chat.ChatServer main
+sep 10, 2014 5:20:46 PM ka_http_chat.ChatServer main
 INFO: Connected to a client
-sep 10, 2014 11:51:51 AM ka_http_chat.ChatServer handleClient
-INFO: Received the message: HELLO WORLD 
-sep 10, 2014 11:51:51 AM ka_http_chat.ChatServer handleClient
-INFO: Received the message: HELLO WORLD 
-sep 10, 2014 11:51:51 AM ka_http_chat.ChatServer handleClient
-INFO: Closed a Connection
