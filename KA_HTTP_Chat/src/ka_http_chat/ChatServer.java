@@ -5,11 +5,8 @@
  */
 package ka_http_chat;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
-import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -28,7 +25,7 @@ public class ChatServer
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
     private static final Properties properties = Logger.initProperties("server.properties");
-
+    
     public static void stopServer()
     {
         keepRunning = false;
@@ -38,7 +35,6 @@ public class ChatServer
     {
         Scanner input = new Scanner(socket.getInputStream());
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
         String message = input.nextLine(); //IMPORTANT blocking call
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.STOP))
@@ -52,17 +48,16 @@ public class ChatServer
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
     }
     
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
 
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
         String logFile = properties.getProperty("logFile");
 
-        Logger.setLogFile(logFile, ChatServer.class.getName());
-        Logger.closeLogger(ChatServer.class.getName());
-
-        java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Sever started");
+//        Logger.setLogFile(logFile, ChatServer.class.getName());
+       
+        Logger.getLogger(logFile,ChatServer.class.getName()).log(Level.INFO, "Sever started");
         try
         {
             serverSocket = new ServerSocket();
@@ -77,5 +72,7 @@ public class ChatServer
         {
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to	a client");
         }
+        
+         Logger.closeLogger(ChatServer.class.getName());
     }
 }

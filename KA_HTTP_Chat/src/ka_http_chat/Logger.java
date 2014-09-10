@@ -40,7 +40,7 @@ public class Logger
         try
         {
             java.util.logging.Logger logger = java.util.logging.Logger.getLogger(className);
-            FileHandler fileTxt = new FileHandler(logFile);
+            FileHandler fileTxt = new FileHandler("chatLog.txt");
             java.util.logging.Formatter formatterTxt = new SimpleFormatter();
             fileTxt.setFormatter(formatterTxt);
             logger.addHandler(fileTxt);
@@ -65,7 +65,7 @@ public class Logger
         try
         {
             logger = java.util.logging.Logger.getLogger(className);
-            FileHandler fileTxt = new FileHandler(logFile);
+            FileHandler fileTxt = new FileHandler("chatLog.txt");
             java.util.logging.Formatter formatterTxt = new SimpleFormatter();
             fileTxt.setFormatter(formatterTxt);
             logger.addHandler(fileTxt);
