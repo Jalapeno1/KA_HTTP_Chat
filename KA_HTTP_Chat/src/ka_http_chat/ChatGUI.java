@@ -43,6 +43,7 @@ public class ChatGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTextFieldPortNumber.setText("9090");
         jTextFieldPortNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPortNumberActionPerformed(evt);
@@ -67,6 +68,7 @@ public class ChatGUI extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldAddress.setText("localhost");
         jTextFieldAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldAddressActionPerformed(evt);
@@ -178,8 +180,9 @@ public class ChatGUI extends javax.swing.JFrame {
         jTextFieldChatBox.setText("");
         jTextFieldMessage.setText("");
         jLabelStatus.setText("Status");
-        jTextFieldPortNumber.setText("");
-        jTextFieldAddress.setText("");
+        jTextFieldPortNumber.setText("9090");
+        jTextFieldAddress.setText("localhost");
+        client.stop();
     }//GEN-LAST:event_jButtonResetActionPerformed
 
     private void jTextFieldMessageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMessageKeyPressed
