@@ -73,6 +73,6 @@ public class ChatServer
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to	a client");
         }
         
-         Logger.closeLogger(ChatServer.class.getName());
+        Logger.closeLogger(ChatServer.class.getName());
     }
 }
