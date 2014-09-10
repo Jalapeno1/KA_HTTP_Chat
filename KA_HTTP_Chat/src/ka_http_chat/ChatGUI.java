@@ -54,6 +54,11 @@ public class ChatGUI extends javax.swing.JFrame {
         jLabel1.setText("Address:");
 
         jButtonMessage.setText("Send Message");
+        jButtonMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMessageActionPerformed(evt);
+            }
+        });
 
         jButtonConnection.setText("Connect");
         jButtonConnection.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +195,10 @@ public class ChatGUI extends javax.swing.JFrame {
     private void jTextFieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAddressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldAddressActionPerformed
+
+    private void jButtonMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMessageActionPerformed
+        String Message = jTextFieldMessage.getText();
+    }//GEN-LAST:event_jButtonMessageActionPerformed
 
     /**
      * @param args the command line arguments
