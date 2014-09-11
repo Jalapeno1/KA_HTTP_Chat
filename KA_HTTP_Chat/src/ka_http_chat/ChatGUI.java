@@ -179,7 +179,7 @@ public class ChatGUI extends javax.swing.JFrame {
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
         jTextFieldChatBox.setText("");
         jTextFieldMessage.setText("");
-        jLabelStatus.setText("Status");
+        jLabelStatus.setText("Program reset");
         jTextFieldPortNumber.setText("9090");
         jTextFieldAddress.setText("localhost");
         client.stop();
@@ -193,6 +193,7 @@ public class ChatGUI extends javax.swing.JFrame {
         port = Integer.parseInt(jTextFieldPortNumber.getText());
         ip = jTextFieldAddress.getText();  
         client.connect(port, ip);        
+        jLabelStatus.setText("Connected");
     }//GEN-LAST:event_jButtonConnectionActionPerformed
 
     private void jTextFieldAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAddressActionPerformed
