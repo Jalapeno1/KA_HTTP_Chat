@@ -30,18 +30,29 @@ public class HTTPServer
     public static void runHTTPServer() throws IOException
     {
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
-        server.createContext("/html", new htmlHandler());
+        server.createContext("/main", new mainHandler());
         server.createContext("/pdf", new pdfHandler());
         server.createContext("/log", new chatlog());
         server.setExecutor(null);
         server.start();
     }
     
-    static class htmlHandler implements HttpHandler {
+    static class mainHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange he) throws IOException
         {
-            String answer = "Under Construction!";
+            BufferedReader bRead = new BufferedReader(new FileReader(new File("front.html")));
+            String line = bRead.readLine();
+            
+            StringBuilder sb = new StringBuilder();
+            
+            while(line != null){
+                System.out.println(line);
+                sb.append(line);
+                line = bRead.readLine();
+            }
+            
+            String answer = sb.toString();
             he.sendResponseHeaders(200, answer.length());
             OutputStream os = he.getResponseBody();
             os.write(answer.getBytes());
@@ -66,11 +77,6 @@ public class HTTPServer
             sb.append("<meta charset='UTF-8'>\n");
             sb.append("</head>\n");
             sb.append("<body>\n");
-            
-//            while((line = re.readLine()) != null){
-//                String a = re.readLine();
-//                sb.append("<p>"+a+"</p>");
-//            }
             
             while(line != null){
                 sb.append("<p>"+line+"</p>");
