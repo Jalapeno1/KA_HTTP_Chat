@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ChatClient extends Thread {
-    
+public class ChatClient extends Thread
+{
 
     Socket socket;
     private int port;
@@ -23,23 +23,27 @@ public class ChatClient extends Thread {
     BufferedReader input;
     private PrintWriter output;
     List<ChatListener> listeners = new ArrayList<>();
-    
 
-    public void registerChatListener(ChatListener liste) {
+    public void registerChatListener(ChatListener liste)
+    {
         listeners.add(liste);
     }
 
-    public void unRegisterEchoListener(ChatListener liste) {
+    public void unRegisterEchoListener(ChatListener liste)
+    {
         listeners.remove(liste);
     }
 
-    private void notifyListeners(String msg) {
-        for (ChatListener listener : listeners) {
+    private void notifyListeners(String msg)
+    {
+        for (ChatListener listener : listeners)
+        {
             listener.messageReceived(msg);
         }
     }
 
-    public void connect(String address, int port) throws UnknownHostException, IOException {
+    public void connect(String address, int port) throws UnknownHostException, IOException
+    {
         this.port = port;
         serverAddress = InetAddress.getByName(address);
         socket = new Socket(serverAddress, port);
@@ -49,29 +53,37 @@ public class ChatClient extends Thread {
         start();
     }
 
-    public void send(String msg) {
+    public void send(String msg)
+    {
         output.println(msg);
     }
 
-    public void stopClient() throws IOException {
+    public void stopClient() throws IOException
+    {
         output.println(ProtocolStrings.STOP);
     }
 
-    public void run() {
-        try {
+    public void run()
+    {
+        try
+        {
             String msg = input.readLine();
-            while (!msg.equals(ProtocolStrings.STOP)) {
+            while (!msg.equals(ProtocolStrings.STOP))
+            {
                 notifyListeners(msg);
                 msg = input.readLine();
             }
-            try {
+            try
+            {
                 socket.close();
-            } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE,null,ex);
+            } catch (IOException ex)
+            {
+                java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE,null,ex);
+
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -102,22 +114,20 @@ public class ChatClient extends Thread {
 //        {
 //            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
-    
 
     public void connect(int port, String ip)
     {
         try
-        { 
+        {
             TestListener dummy = new TestListener();
             ChatClient tester = new ChatClient();
             tester.registerChatListener(dummy);
-            tester.connect(ip, port);       
+            tester.connect(ip, port);
             System.out.println("Sending 'Hello world'");
             tester.send("Hello World");
-            System.out.println("Waiting for a reply");     
+            System.out.println("Waiting for a reply");
             tester.stopClient();
-            System.in.read();      
+            System.in.read();
         } catch (UnknownHostException ex)
         {
             java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,7 +135,53 @@ public class ChatClient extends Thread {
         {
             java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
+
+    private class KeyboardListener implements Runnable
+    {
+
+        private final BufferedReader keyboard;
+        private final PrintWriter out;
+
+        public KeyboardListener(Socket socket) throws IOException
+        {
+            keyboard = new BufferedReader(new InputStreamReader(System.in));
+            out = new PrintWriter(socket.getOutputStream(), true);
+        }
+
+        @Override
+        public void run()
+        {
+            while (true)
+            {
+                try
+                {
+                    String message = keyboard.readLine();
+                    if (!message.isEmpty())
+                    {
+                        out.println(message);
+                        message = "";
+                    }
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    private class ChatListener implements Runnable
+    {
         
+
+        @Override
+        public void run()
+        {
+            while (true)
+            {
+                
+            }
+        }
+    }
 }
