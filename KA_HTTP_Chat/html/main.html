@@ -20,12 +20,18 @@
                 box-shadow: 7px 7px 5px #cdcdcd;
             }
 
-            nav {
+            #horizontal{
                 height: 50px;
                 text-align: center;
+                margin-bottom: 50px;
             }
 
-            nav ul {
+            #menu {
+                height: 50px;
+                margin-bottom: 50px;
+            }
+
+            #navbar{
                 border-width: 1px;
                 border-style: solid;
                 border-color: #d5d5d5 #d2d2d2 #cdcdcd;
@@ -40,11 +46,11 @@
 
             }
 
-            li {
+            #top {
                 display: inline;
             }
 
-            nav a {
+            nav a{
                   display: inline;
                   position: relative;
                   padding: 0 24px;
@@ -60,22 +66,32 @@
     </head>
 
     <body>
-        <nav>
-            <ul>
-                <li><a id="home" href="main.html">HOME</a></li>
-                <li>
+        <nav id="horizontal">
+            <ul id="navbar">
+                <li id="top"><a id="home" href="main.html">HOME</a></li>
+                <li id="top">
                     <a id="users" href="">Online Users</a>
                 </li>
-                <li>
-                    <a id="chatLog" href="">Chat Server Log File</a>
-                </li>
-                <li>
-                    <a id="documentation" href="">Documentation</a>
+                <li id="top">
+                    <a id="chatLog" href="/log">Chat Server Log File</a>
                 </li>
             </ul>
         </nav>
 
-
+        <nav id="menu">
+            <ul>
+                <li><a id="assignment" href="/pdf">Assignment</a></li>
+                <li>
+                    <a id="client" href="/client">Get Client</a>
+                </li>
+                <li>
+                    <a id="documentation" href="">Documentation</a>
+                </li>
+                <li>
+                    <a id="github" href="https://github.com/Jalapeno1/KA_HTTP_Chat/tree/master/KA_HTTP_Chat">GitHub Repository</a>
+                </li>
+            </ul>
+        </nav>
     </body>
 
 </html>
