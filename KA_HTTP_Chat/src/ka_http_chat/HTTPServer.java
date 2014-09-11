@@ -55,7 +55,7 @@ public class HTTPServer
         public void handle(HttpExchange he) throws IOException
         {
             BufferedReader re = new BufferedReader(new FileReader(new File("chatLog.txt")));
-            String line;
+            String line = re.readLine();
             
             StringBuilder sb = new StringBuilder();
             
@@ -67,9 +67,14 @@ public class HTTPServer
             sb.append("</head>\n");
             sb.append("<body>\n");
             
-            while((line = re.readLine()) != null){
-                String a = re.readLine();
-                sb.append("<p>"+a+"</p>");
+//            while((line = re.readLine()) != null){
+//                String a = re.readLine();
+//                sb.append("<p>"+a+"</p>");
+//            }
+            
+            while(line != null){
+                sb.append("<p>"+line+"</p>");
+                line = re.readLine();
             }
             
             sb.append("</body>\n");
@@ -103,10 +108,5 @@ public class HTTPServer
             os.write(bytearray, 0, bytearray.length);
             os.close();
         }    
-    }
-    
-//    public static void main(String[] args) throws IOException
-//    {
-//        runHTTPServer();
-//    }
+    }    
 }
