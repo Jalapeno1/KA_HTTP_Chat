@@ -41,6 +41,9 @@ public class TestClient
                 } catch (FileNotFoundException ex)
                 {
                     Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(TestClient.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }).start();

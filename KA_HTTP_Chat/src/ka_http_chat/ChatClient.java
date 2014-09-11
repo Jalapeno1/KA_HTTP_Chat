@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ChatClient extends Thread {
     
@@ -18,7 +19,8 @@ public class ChatClient extends Thread {
     Socket socket;
     private int port;
     private InetAddress serverAddress;
-    private Scanner input;
+    //private Scanner input;
+    BufferedReader input;
     private PrintWriter output;
     List<ChatListener> listeners = new ArrayList<>();
     
@@ -41,7 +43,8 @@ public class ChatClient extends Thread {
         this.port = port;
         serverAddress = InetAddress.getByName(address);
         socket = new Socket(serverAddress, port);
-        input = new Scanner(socket.getInputStream());
+        Reader reader = new InputStreamReader(socket.getInputStream());
+        input = new BufferedReader(reader);
         output = new PrintWriter(socket.getOutputStream(), true);  //Set to true, to get auto flush behaviour      
         start();
     }
@@ -55,18 +58,20 @@ public class ChatClient extends Thread {
     }
 
     public void run() {
-        String msg
-                = input.nextLine();
-        while (!msg.equals(ProtocolStrings.STOP)) {
-            notifyListeners(msg);
-            msg = input.nextLine();
-        }
         try {
-            socket.close();
+            String msg = input.readLine();
+            while (!msg.equals(ProtocolStrings.STOP)) {
+                notifyListeners(msg);
+                msg = input.readLine();
+            }
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE,null,ex);
+            }
+            
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE,
-                    null,
-                    ex);
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE,null,ex);
         }
 
     }
@@ -97,10 +102,10 @@ public class ChatClient extends Thread {
 //        {
 //            java.util.logging.Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//        
+        
     
 
-        public void connect(int port, String ip)
+    public void connect(int port, String ip)
     {
         try
         { 
