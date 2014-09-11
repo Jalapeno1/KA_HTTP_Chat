@@ -52,8 +52,6 @@ public class ChatServer
     
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
-
-        HTTPServer.runHTTPServer();
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
         String logFile = properties.getProperty("logFile");

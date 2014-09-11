@@ -41,13 +41,12 @@ public class HTTPServer
         @Override
         public void handle(HttpExchange he) throws IOException
         {
-            BufferedReader bRead = new BufferedReader(new FileReader(new File("front.html")));
+            BufferedReader bRead = new BufferedReader(new FileReader(new File("Homepage/main.html")));
             String line = bRead.readLine();
             
             StringBuilder sb = new StringBuilder();
             
             while(line != null){
-                System.out.println(line);
                 sb.append(line);
                 line = bRead.readLine();
             }
@@ -66,25 +65,34 @@ public class HTTPServer
         public void handle(HttpExchange he) throws IOException
         {
             BufferedReader re = new BufferedReader(new FileReader(new File("chatLog.txt")));
+            
+            BufferedReader br1 = new BufferedReader(new FileReader(new File("Homepage/log1.html")));
+            BufferedReader br2 = new BufferedReader(new FileReader(new File("Homepage/log2.html")));
+            
+            String htmlLine1 = br1.readLine();
+            String htmlLine2 = br2.readLine();
             String line = re.readLine();
             
             StringBuilder sb = new StringBuilder();
             
-            sb.append("<!DOCTYPE html>\n");
-            sb.append("<html>\n");
-            sb.append("<head>\n");
-            sb.append("<title>ChatLog</title>\n");
-            sb.append("<meta charset='UTF-8'>\n");
-            sb.append("</head>\n");
-            sb.append("<body>\n");
+            while(htmlLine1 != null){
+                sb.append(htmlLine1);
+                htmlLine1 = br1.readLine();
+            }
             
             while(line != null){
-                sb.append("<p>"+line+"</p>");
+                sb.append("<tr>");
+                sb.append("<th class=\"info\">"+line+"</th");
+                line = re.readLine();
+                sb.append("<th class=\"info\">"+line+"</th");
+                sb.append("</tr>");
                 line = re.readLine();
             }
             
-            sb.append("</body>\n");
-            sb.append("</html>\n");
+            while(htmlLine2 != null){
+                sb.append(htmlLine2);
+                htmlLine2 = br2.readLine();
+            }
             
             String answer = sb.toString();
             
@@ -115,4 +123,9 @@ public class HTTPServer
             os.close();
         }    
     }    
+    
+    public static void main(String[] args) throws IOException
+    {
+        runHTTPServer();
+    }
 }
