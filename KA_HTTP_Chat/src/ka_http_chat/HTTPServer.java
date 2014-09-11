@@ -41,7 +41,7 @@ public class HTTPServer
         @Override
         public void handle(HttpExchange he) throws IOException
         {
-            BufferedReader bRead = new BufferedReader(new FileReader(new File("Homepage/main.html")));
+            BufferedReader bRead = new BufferedReader(new FileReader(new File("Homepage/test.html")));
             String line = bRead.readLine();
             
             StringBuilder sb = new StringBuilder();
@@ -50,14 +50,13 @@ public class HTTPServer
                 sb.append(line);
                 line = bRead.readLine();
             }
-            
+     
             String answer = sb.toString();
             he.sendResponseHeaders(200, answer.length());
             OutputStream os = he.getResponseBody();
             os.write(answer.getBytes());
             os.close();
         }
-
     }
     
     static class chatlog implements HttpHandler {
