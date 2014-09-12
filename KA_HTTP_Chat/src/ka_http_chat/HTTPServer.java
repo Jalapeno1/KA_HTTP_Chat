@@ -24,7 +24,7 @@ import java.net.InetSocketAddress;
  */
 public class HTTPServer
 {
-    static int port = 9090; 
+    static int port = 8888; 
     static String ip = "127.0.0.1";
     
     public static void runHTTPServer() throws IOException
