@@ -44,6 +44,10 @@ public class ChatServer
         String line = sender + ": " + messageInput;
         message.add(line);
     }
+    
+    public void removeClient (String name){
+        users.remove(name);
+    }
 
 //    private static void handleClient(Socket socket) throws IOException
 //    {
