@@ -23,27 +23,26 @@ public class ClientHandler extends Thread
     PrintWriter writer;
     Socket socket;
     ChatServer server;
-     public   ClientHandler(Socket socket,ChatServer s) throws IOException
+    public   ClientHandler(Socket socket,ChatServer s) throws IOException
     {
         this.server = s;
         this.socket= socket;
         input = new Scanner(socket.getInputStream());
-         writer = new PrintWriter(socket.getOutputStream(), true);
-        
+        writer = new PrintWriter(socket.getOutputStream(), true);    
     }
      
     @Override
      public void run(){
-         String message = input.nextLine(); //IMPORTANT blocking call
-         String[] protocolParts = message.split("#");
+        String message = input.nextLine(); //IMPORTANT blocking call
+        String[] protocolParts = message.split("#");
         java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.STOP))
         {
             if(protocolParts[0].equals("CONNECT")){
-                server.addNewClient(protocolParts[1],this);
+                server.addNewClient(protocolParts[1]);
             }
             if(protocolParts[0].equals("SEND")){
-                //TODO
+                server.addMessage(protocolParts[1], protocolParts[2]);
             }
             java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
             message = input.nextLine(); //IMPORTANT blocking call
