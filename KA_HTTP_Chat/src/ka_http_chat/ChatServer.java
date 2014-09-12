@@ -52,9 +52,9 @@ public class ChatServer
         }
     }
     
-    public void addMessage (String messageInput, ClientHandler ch1){
+    public void addMessage (String userName, String messageInput, ClientHandler ch1){
         MessageRecieved.put(messageInput, ch1);
-        String notify = "MESSAGE#";
+        String notify = "MESSAGE#"+userName;
         for (String name : MessageRecieved.keySet()){
             notify += name + ":";
         }
