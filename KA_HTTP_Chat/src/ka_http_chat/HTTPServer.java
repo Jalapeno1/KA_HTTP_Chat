@@ -73,7 +73,7 @@ public class HTTPServer
             StringBuilder sb = new StringBuilder();
             
             while(htmlLine1 != null){
-                if (htmlLine1.contains("<!--startpoint-->")){ //building table of log data
+                if (htmlLine1.contains("<!--startpoint-->")){ //builds a table of log data
                     while (line != null){
                         sb.append("<tr>");
                         sb.append("<td>"+line+"</td>");
