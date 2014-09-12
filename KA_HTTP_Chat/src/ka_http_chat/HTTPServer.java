@@ -30,6 +30,7 @@ public class HTTPServer
     public static void runHTTPServer() throws IOException
     {
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
+        server.createContext("/dok", new docHandler());
         server.createContext("/main", new mainHandler());
         server.createContext("/pdf", new pdfHandler());
         server.createContext("/log", new chatlog());
@@ -59,6 +60,26 @@ public class HTTPServer
             os.close();
         }
     }
+    
+    static class docHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange he) throws IOException
+        {
+            Headers h = he.getResponseHeaders();
+            h.add("Content-Type", "application/pdf");
+            
+            File file = new File("documentation.pdf");
+            byte[] bytearray = new byte[(int) file.length()];
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            bis.read(bytearray, 0, bytearray.length);
+
+            he.sendResponseHeaders(200, file.length());
+            OutputStream os = he.getResponseBody();
+            os.write(bytearray, 0, bytearray.length);
+            os.close();
+        }    
+    }   
     
     static class chatlog implements HttpHandler {
         @Override
@@ -134,7 +155,7 @@ public class HTTPServer
             os.close();
         }    
     }  
-    
+        
     public static void main(String[] args) throws IOException
     {
         runHTTPServer();
