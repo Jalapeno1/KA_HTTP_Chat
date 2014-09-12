@@ -1,4 +1,4 @@
-sep 12, 2014 8:55:15 AM ka_http_chat.ChatServer main
+sep. 12, 2014 9:59:57 AM ka_http_chat.ChatServer main
 INFO: Sever started
-sep 12, 2014 8:55:15 AM ka_http_chat.ChatServer main
+sep. 12, 2014 10:00:10 AM ka_http_chat.ChatServer main
 INFO: Connected to a client

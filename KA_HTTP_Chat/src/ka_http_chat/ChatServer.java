@@ -12,6 +12,8 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -27,8 +29,9 @@ public class ChatServer
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
     private static final Properties properties = Logger.initProperties("server.properties");
-    private ArrayList users = new ArrayList();
+    private Map<String, ClientHandler> users = new HashMap();
     private ArrayList message = new ArrayList();
+   
     
     
     public static void stopServer()
@@ -36,8 +39,17 @@ public class ChatServer
         keepRunning = false;
     }
     
-    public void addNewClient(String userName){
-        users.add(userName);
+    public void addNewClient(String userName, ClientHandler ch){
+        users.put(userName, ch);
+        String message = "ONLINE#";
+        for (String name : users.keySet())
+        {
+            message += name + ",";
+        }
+        for (ClientHandler h : users.values())
+        {
+            h.send(message);
+        }
     }
     
     public void addMessage (String sender, String messageInput){
@@ -70,7 +82,10 @@ public class ChatServer
     
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
+        new ChatServer().HandleClient();
+    }
 
+    private void HandleClient() throws NumberFormatException, IOException {
         HTTPServer.runHTTPServer();
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
@@ -84,16 +99,15 @@ public class ChatServer
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(ip, port));
             do
-            {
+            {            
                 Socket socket = serverSocket.accept(); //Important Blocking call
                 java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to a client");
-                //ClientHandler.run;
+                new ClientHandler(socket, this).start();                
             } while (keepRunning);
         } catch (IOException ex)
         {
-            java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Connected to a client");
-        }
-        
+            java.util.logging.Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "" );
+        }     
         Logger.closeLogger(ChatServer.class.getName());
     }
 }
