@@ -33,7 +33,7 @@ public class ClientHandler extends Thread {
                 server.addNewClient(protocolParts[1], this);
             }
             if (protocolParts[0].equals("SEND")) {
-                server.addMessage(protocolParts[1], this);
+                server.addMessage(protocolParts[2], this);
             }
             if (protocolParts[0].equals("CLOSE")) {
                 server.removeClient(protocolParts[1]);
