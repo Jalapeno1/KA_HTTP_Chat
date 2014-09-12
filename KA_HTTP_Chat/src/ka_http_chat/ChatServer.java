@@ -30,7 +30,7 @@ public class ChatServer
     private static ServerSocket serverSocket;
     private static final Properties properties = Logger.initProperties("server.properties");
     private Map<String, ClientHandler> users = new HashMap();
-    private ArrayList message = new ArrayList();
+    private Map<String, ClientHandler> MessageRecieved = new HashMap();
    
     
     
@@ -52,9 +52,16 @@ public class ChatServer
         }
     }
     
-    public void addMessage (String sender, String messageInput){
-        String line = sender + ": " + messageInput;
-        message.add(line);
+    public void addMessage (String messageInput, ClientHandler ch1){
+        MessageRecieved.put(messageInput, ch1);
+        String notify = "MESSAGE#";
+        for (String name : MessageRecieved.keySet()){
+            notify += name + ":";
+        }
+        for (ClientHandler h1 : MessageRecieved.values()) 
+        {
+               h1.send(notify);
+    }
     }
     
     public void removeClient (String name){
